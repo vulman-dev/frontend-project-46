@@ -5,20 +5,19 @@ const genDiff = (obj1, obj2) => {
   const keys2 = Object.keys(obj2);
   const sortedKeys = _.sortBy(_.union(keys1, keys2));
 
-  let result = '{';
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const key of sortedKeys) {
+  const result = sortedKeys.reduce((acc, key) => {
     if (!Object.hasOwn(obj1, key)) {
-      result = `${result}\n + ${key}: ${obj2[key]}`;
-    } else if (!Object.hasOwn(obj2, key)) {
-      result = `${result}\n - ${key}: ${obj1[key]}`;
-    } else if (obj1[key] === obj2[key]) {
-      result = `${result}\n   ${key}: ${obj1[key]}`;
-    } else {
-      result = `${result}\n - ${key}: ${obj1[key]}\n + ${key}: ${obj2[key]}`;
+      return `${acc}\n  + ${key}: ${obj2[key]}`;
     }
-  }
+    if (!Object.hasOwn(obj2, key)) {
+      return `${acc}\n  - ${key}: ${obj1[key]}`;
+    }
+    if (obj1[key] === obj2[key]) {
+      return `${acc}\n    ${key}: ${obj1[key]}`;
+    }
+
+    return `${acc}\n  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`;
+  }, '{');
 
   return `${result}\n}`;
 };
