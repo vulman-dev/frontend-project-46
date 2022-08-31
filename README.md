@@ -6,10 +6,10 @@
 <a href="https://codeclimate.com/github/vulman-dev/frontend-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/94bcb74e11bf968c9e12/test_coverage" /></a>
 
 ### Пример работы программы
-https://asciinema.org/a/kCKnax7eXhBsxrpYq3rAOWVU7
+[![asciicast](https://asciinema.org/a/kCKnax7eXhBsxrpYq3rAOWVU7.svg)](https://asciinema.org/a/kCKnax7eXhBsxrpYq3rAOWVU7)
 
 ## JSON формат
-https://asciinema.org/a/AgCEu0BUWRrNGfIjYqDoflg7s
+[![asciicast](https://asciinema.org/a/AgCEu0BUWRrNGfIjYqDoflg7s.svg)](https://asciinema.org/a/AgCEu0BUWRrNGfIjYqDoflg7s)
 
 ## YAML формат
-https://asciinema.org/a/DWdqACp4vcPhjEezFtDWMv8XG
+[![asciicast](https://asciinema.org/a/DWdqACp4vcPhjEezFtDWMv8XG.svg)](https://asciinema.org/a/DWdqACp4vcPhjEezFtDWMv8XG)
