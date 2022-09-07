@@ -84,7 +84,7 @@ test('yaml files', () => {
 });
 
 test('plain json files', () => {
-  const actual = gendiff('nestedFile1.yml', 'nestedFile2.yaml', 'plain');
+  const actual = genDiff('nestedFile1.yml', 'nestedFile2.yaml', 'plain');
 
   expect(actual).toEqual(expectedPlainFormat);
 });
