@@ -16,3 +16,6 @@
 
 ## NESTED Object
 [![asciicast](https://asciinema.org/a/xS20lP2sM591XJzJcGRhta0aY.svg)](https://asciinema.org/a/xS20lP2sM591XJzJcGRhta0aY)
+
+## Choose stylish or plain format
+[![asciicast](https://asciinema.org/a/ziLtM2rq5kipGyPZiVffBTBmR.svg)](https://asciinema.org/a/ziLtM2rq5kipGyPZiVffBTBmR)

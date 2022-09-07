@@ -2,7 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import parseFile from './parser.js';
-import stylish from './stylish.js';
+import formatTree from './formatters/index.js';
 
 const getUnionKeys = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
@@ -57,14 +57,6 @@ const buildASTTree = (obj1, obj2) => {
   });
 
   return result;
-};
-
-const formatTree = (tree, format) => {
-  if (format === 'stylish') {
-    return stylish(tree);
-  }
-
-  return {};
 };
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
