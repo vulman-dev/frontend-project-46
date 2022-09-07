@@ -13,3 +13,6 @@
 
 ## YAML формат
 [![asciicast](https://asciinema.org/a/DWdqACp4vcPhjEezFtDWMv8XG.svg)](https://asciinema.org/a/DWdqACp4vcPhjEezFtDWMv8XG)
+
+## NESTED Object
+[![asciicast](https://asciinema.org/a/xS20lP2sM591XJzJcGRhta0aY.svg)](https://asciinema.org/a/xS20lP2sM591XJzJcGRhta0aY)
