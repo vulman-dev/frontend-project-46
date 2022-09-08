@@ -3,19 +3,16 @@ import plain from './plain.js';
 import json from './json.js';
 
 const formatTree = (tree, format) => {
-  if (format === 'stylish') {
-    return stylish(tree);
+  switch (format) {
+    case 'stylish':
+      return stylish(tree);
+    case 'plain':
+      return plain(tree);
+    case 'json':
+      return json(tree);
+    default:
+      return {};
   }
-
-  if (format === 'plain') {
-    return plain(tree);
-  }
-
-  if (format === 'json') {
-    return json(tree);
-  }
-
-  return {};
 };
 
 export default formatTree;

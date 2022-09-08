@@ -19,25 +19,22 @@ const stylish = (tree) => {
     };
 
     const result = node.map((obj) => {
-      if (obj.status === 'added') {
-        return `${currentLittleIndent}+ ${obj.name}: ${iterIfNested(obj.value)}`;
-      }
-      if (obj.status === 'deleted') {
-        return `${currentLittleIndent}- ${obj.name}: ${iterIfNested(obj.value)}`;
-      }
-
-      if (obj.status === 'unchanged') {
-        return `${currentIndent}${obj.name}: ${iterIfNested(obj.value)}`;
-      }
-
-      if (obj.status === 'modified') {
-        const valueBefore = `${currentLittleIndent}- ${obj.name}: ${iterIfNested(obj.valueBefore)}`;
-        const valueAfter = `${currentLittleIndent}+ ${obj.name}: ${iterIfNested(obj.valueAfter)}`;
-        return `${valueBefore}\n${valueAfter}`;
-      }
-
-      if (obj.status === 'nested') {
-        return `${currentIndent}${obj.name}: ${iter(obj.children, depth + 1)}`;
+      switch (obj.status) {
+        case 'added':
+          return `${currentLittleIndent}+ ${obj.name}: ${iterIfNested(obj.value)}`;
+        case 'deleted':
+          return `${currentLittleIndent}- ${obj.name}: ${iterIfNested(obj.value)}`;
+        case 'unchanged':
+          return `${currentIndent}${obj.name}: ${iterIfNested(obj.value)}`;
+        case 'modified': {
+          const valueBefore = `${currentLittleIndent}- ${obj.name}: ${iterIfNested(obj.valueBefore)}`;
+          const valueAfter = `${currentLittleIndent}+ ${obj.name}: ${iterIfNested(obj.valueAfter)}`;
+          return `${valueBefore}\n${valueAfter}`;
+        }
+        case 'nested':
+          return `${currentIndent}${obj.name}: ${iter(obj.children, depth + 1)}`;
+        default:
+          break;
       }
 
       const keys = Object.keys(obj);
