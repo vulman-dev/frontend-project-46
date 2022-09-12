@@ -35,7 +35,7 @@ const stylish = (tree) => {
         case 'nested':
           return `${currentIndent}${obj.name}: ${iter(obj.children, depth + 1)}`;
         default:
-          throw new Error(`Type is not defined - ${obj.status}`);
+          break;
       }
 
       const keys = Object.keys(obj);
