@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import _ from 'lodash';
 
 const stylish = (tree) => {
@@ -34,7 +35,7 @@ const stylish = (tree) => {
         case 'nested':
           return `${currentIndent}${obj.name}: ${iter(obj.children, depth + 1)}`;
         default:
-          break;
+          throw new Error(`Type is not defined - ${obj.status}`);
       }
 
       const keys = Object.keys(obj);

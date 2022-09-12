@@ -11,7 +11,7 @@ const formatTree = (tree, format) => {
     case 'json':
       return json(tree);
     default:
-      return {};
+      throw new Error(`Format is not defined ${format}`);
   }
 };
 

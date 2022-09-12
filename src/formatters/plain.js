@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import _ from 'lodash';
 
 const plain = (tree) => {
