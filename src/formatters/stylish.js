@@ -1,45 +1,38 @@
-/* eslint-disable no-unreachable */
+/* eslint-disable no-case-declarations */
 import _ from 'lodash';
 
+const currentIndent = (depth, indent = 4) => ' '.repeat(indent * depth - 2);
+
+const stringify = (value, depth) => {
+  if (_.isObject(value)) {
+    return stringify([value], depth + 1);
+  }
+
+  return value;
+};
+
 const stylish = (tree) => {
-  const replacer = ' ';
-  const spaceCount = 4;
-
   const iter = (node, depth) => {
-    const indentSize = depth * spaceCount;
-    const littleIndentSize = depth * spaceCount - 2;
-    const currentIndent = replacer.repeat(indentSize);
-    const currentLittleIndent = replacer.repeat(littleIndentSize);
-    const bracketIndent = replacer.repeat(indentSize - spaceCount);
-    const iterIfNested = (value) => {
-      if (_.isObject(value)) {
-        return iter([value], depth + 1);
-      }
-
-      return value;
-    };
-
     const result = node.map((obj) => {
       switch (obj.status) {
         case 'added':
-          return `${currentLittleIndent}+ ${obj.name}: ${iterIfNested(obj.value)}`;
+          return `${currentIndent(depth)}+ ${obj.name}: ${stringify(obj.value, depth)}`;
         case 'deleted':
-          return `${currentLittleIndent}- ${obj.name}: ${iterIfNested(obj.value)}`;
+          return `${currentIndent(depth)}- ${obj.name}: ${stringify(obj.value, depth)}`;
         case 'unchanged':
-          return `${currentIndent}${obj.name}: ${iterIfNested(obj.value)}`;
-        case 'modified': {
-          const valueBefore = `${currentLittleIndent}- ${obj.name}: ${iterIfNested(obj.valueBefore)}`;
-          const valueAfter = `${currentLittleIndent}+ ${obj.name}: ${iterIfNested(obj.valueAfter)}`;
+          return `${currentIndent(depth)}  ${obj.name}: ${stringify(obj.value, depth)}`;
+        case 'modified':
+          const valueBefore = `${currentIndent(depth)}- ${obj.name}: ${stringify(obj.valueBefore, depth)}`;
+          const valueAfter = `${currentIndent(depth)}+ ${obj.name}: ${stringify(obj.valueAfter, depth)}`;
           return `${valueBefore}\n${valueAfter}`;
-        }
         case 'nested':
-          return `${currentIndent}${obj.name}: ${iter(obj.children, depth + 1)}`;
+          return `${currentIndent(depth)}${obj.name}: ${iter(obj.children, depth + 1)}`;
         default:
-          break;
+          throw new Error(`Type is not defined - ${obj.status}`);
       }
 
       const keys = Object.keys(obj);
-      const nestedObj = keys.map((key) => `${currentIndent}${key}: ${iterIfNested(obj[key])}`);
+      const nestedObj = keys.map((key) => `${currentIndent(depth)}${key}: ${stringify(obj[key], depth)}`);
 
       return nestedObj.join('\n');
     });
@@ -47,7 +40,7 @@ const stylish = (tree) => {
     return [
       '{',
       ...result,
-      `${bracketIndent}}`,
+      '}',
     ].join('\n');
   };
 
