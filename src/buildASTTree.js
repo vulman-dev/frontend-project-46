@@ -14,42 +14,27 @@ const buildASTTree = (obj1, obj2) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 
-    const node = {
-      name: key,
-    };
-
     if (!Object.hasOwn(obj1, key)) {
-      node.status = 'added';
-      node.value = value2;
-
-      return node;
+      return { name: key, status: 'added', value: value2 };
     }
     if (!Object.hasOwn(obj2, key)) {
-      node.status = 'deleted';
-      node.value = value1;
-
-      return node;
+      return { name: key, status: 'deleted', value: value1 };
     }
 
     if (_.isObject(value1) && _.isObject(value2)) {
-      node.status = 'nested';
-      node.children = buildASTTree(value1, value2);
-
-      return node;
+      return { name: key, status: 'nested', children: buildASTTree(value1, value2) };
     }
 
     if (value1 === value2) {
-      node.status = 'unchanged';
-      node.value = value1;
-
-      return node;
+      return { name: key, status: 'unchanged', value: value1 };
     }
 
-    node.status = 'modified';
-    node.valueBefore = value1;
-    node.valueAfter = value2;
-
-    return node;
+    return {
+      name: key,
+      status: 'modified',
+      valueBefore: value1,
+      valueAfter: value2,
+    };
   });
 
   return result;
