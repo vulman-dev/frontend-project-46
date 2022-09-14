@@ -1,15 +1,14 @@
 import jsYaml from 'js-yaml';
 
 const parseFile = (filename, ext) => {
-  if (ext === '.json') {
-    return JSON.parse(filename);
+  switch (ext) {
+    case '.json':
+      return JSON.parse(filename);
+    case '.yml' || '.yaml':
+      return jsYaml.load(filename);
+    default:
+      throw new Error(`${ext} - invalid type of parser!`);
   }
-
-  if (ext === '.yml' || ext === '.yaml') {
-    return jsYaml.load(filename);
-  }
-
-  return {};
 };
 
 export default parseFile;
