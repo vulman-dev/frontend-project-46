@@ -4,7 +4,7 @@ install:
 gendiff:
 	node bin/gendiff.js
 
-publish:
+publish-test:
 	npm publish --dry-run
 
 test:
