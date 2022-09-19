@@ -31,3 +31,16 @@ describe('test genDiff, each cases', () => {
     },
   );
 });
+
+describe('test genDiff with default value', () => {
+  test.each(cases)(
+    'files of type %p formatted as default are expected to match %p',
+    (type) => {
+      const file1 = getFilePath(`nestedFile1.${type}`);
+      const file2 = getFilePath(`nestedFile2.${type}`);
+      const readDiff = genDiff(file1, file2).trim();
+      const result = getContent('stylish.txt').trim();
+      expect(readDiff).toEqual(result);
+    },
+  );
+});

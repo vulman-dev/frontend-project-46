@@ -14,20 +14,20 @@ const stringify = (value, depth) => {
 
 const stylish = (tree) => {
   const iter = (node, depth) => {
-    const result = node.map((obj) => {
-      switch (obj.status) {
+    const result = node.map((fileContent) => {
+      switch (fileContent.status) {
         case 'added':
-          return `${currentIndent(depth)}+ ${obj.name}: ${stringify(obj.value, depth + 1)}`;
+          return `${currentIndent(depth)}+ ${fileContent.name}: ${stringify(fileContent.value, depth + 1)}`;
         case 'deleted':
-          return `${currentIndent(depth)}- ${obj.name}: ${stringify(obj.value, depth + 1)}`;
+          return `${currentIndent(depth)}- ${fileContent.name}: ${stringify(fileContent.value, depth + 1)}`;
         case 'unchanged':
-          return `${currentIndent(depth)}  ${obj.name}: ${stringify(obj.value, depth + 1)}`;
+          return `${currentIndent(depth)}  ${fileContent.name}: ${stringify(fileContent.value, depth + 1)}`;
         case 'modified':
-          return `${currentIndent(depth)}- ${obj.name}: ${stringify(obj.valueBefore, depth + 1)}\n${currentIndent(depth)}+ ${obj.name}: ${stringify(obj.valueAfter, depth + 1)}`;
+          return `${currentIndent(depth)}- ${fileContent.name}: ${stringify(fileContent.valueBefore, depth + 1)}\n${currentIndent(depth)}+ ${fileContent.name}: ${stringify(fileContent.valueAfter, depth + 1)}`;
         case 'nested':
-          return `${currentIndent(depth)}  ${obj.name}: ${iter(obj.children, depth + 1)}`;
+          return `${currentIndent(depth)}  ${fileContent.name}: ${iter(fileContent.children, depth + 1)}`;
         default:
-          throw new Error(`Type is not defined - ${obj.status}`);
+          throw new Error(`Type is not defined - ${fileContent.status}`);
       }
     });
     return ['{', ...result, `${currentIndent(depth).slice(2)}}`].join('\n');

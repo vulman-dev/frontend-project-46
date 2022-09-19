@@ -14,21 +14,21 @@ const stringify = (value) => {
 
 const plain = (tree) => {
   const iter = (node, acc) => {
-    const result = node.reduce((accum, obj) => {
-      const name = acc ? `${acc}.${obj.name}` : obj.name;
-      switch (obj.status) {
+    const result = node.reduce((accum, fileContent) => {
+      const name = acc ? `${acc}.${fileContent.name}` : fileContent.name;
+      switch (fileContent.status) {
         case 'unchanged':
           return accum;
         case 'added':
-          return [...accum, `Property '${name}' was added with value: ${stringify(obj.value)}`];
+          return [...accum, `Property '${name}' was added with value: ${stringify(fileContent.value)}`];
         case 'deleted':
           return [...accum, `Property '${name}' was removed`];
         case 'modified':
-          return [...accum, `Property '${name}' was updated. From ${stringify(obj.valueBefore)} to ${stringify(obj.valueAfter)}`];
+          return [...accum, `Property '${name}' was updated. From ${stringify(fileContent.valueBefore)} to ${stringify(fileContent.valueAfter)}`];
         case 'nested':
-          return [...accum, iter(obj.children, `${name}`)];
+          return [...accum, iter(fileContent.children, `${name}`)];
         default:
-          throw new Error(`Unknown state: '${obj.status}'!`);
+          throw new Error(`Unknown state: '${fileContent.status}'!`);
       }
     }, []);
     return _.compact(result).join('\n');
